@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Participante{% endblock %}
+
+{% block content %}
+
+{% load django_bootstrap5 %}
+<div class="m-5 d-flex justify-content-center">
+    <form id="formParticipante" name="formParticipante" method="POST">{% csrf_token %}
+      {% bootstrap_form form %}
+
+      {% bootstrap_button button_type="submit" content="Próximo" button_class="btn btn-primary w-100" %}
+    </div>
+</div>
+<script>
+  cpfInput = document.querySelector("#id_cpf")
+  cpfInput.addEventListener("input", (e) => {
+    e.target.value = cpfMask(e.target.value)
+  })
+
+  function cpfMask(value) {
+    return value.replace(/\D/g, '')
+      .replace(/^(\d{3})(\d)/, '$1.$2')
+      .replace(/(\.\d{3})(\d)/, '$1.$2')
+      .replace(/(\.\d{3})(\d)/, '$1-$2')
+      // .replace(/(-\d{2})\d+?$/, '$1')
+  }
+
+  cpfInput.value = cpfMask(cpfInput.value)
+</script>
+{% endblock %}

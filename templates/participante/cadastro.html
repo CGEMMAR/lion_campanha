@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro{% endblock %}
+
+{% block content %}
+
+{% load django_bootstrap5 %}
+<div class="m-5 d-flex justify-content-center">
+    <form method="POST">{% csrf_token %}
+        {% bootstrap_form form %}
+
+        <div class="d-flex gap-1">
+            {% bootstrap_button href="." content="Voltar" button_class="btn btn-secondary w-100" %}
+            {% bootstrap_button button_type="submit" content="Confirmar" button_class="btn btn-primary w-100" %}
+        </div>
+    </div>
+</div>
+<script>
+    document.querySelector("#id_telefone").addEventListener("input", (e) => {
+        e.target.value = telefoneMask(e.target.value)
+    })
+
+    function telefoneMask (phone) {
+        return phone.replace(/\D/g, '')
+            .replace(/^(\d)/, '($1')
+            .replace(/^(\(\d{2})(\d)/, '$1) $2')
+            .replace(/(\d{5})(\d{1,4})/, '$1-$2')
+            // .replace(/(-\d{4})\d+?$/, '$1');
+    }
+</script>
+{% endblock %}

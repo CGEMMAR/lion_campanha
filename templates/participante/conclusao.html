@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Conclusão{% endblock %}
+
+{% block content %}
+<div class="w-100 d-flex justify-content-center align-items-center" style="height:100vh;">
+    <div class="d-flex flex-column align-items-center">
+        {% if tipo == "1" %}
+            <h1>Já cadastrado.</h1>
+            <span>Você já havia se cadastrado nessa campanha!</span>
+        {% elif tipo == "2" %}
+            <h1>Cadastrado novamente.</h1>
+            <span>{%if nome %} {{nome}} {% else %} Você {% endif %} entrou na campanha!</span>
+        {% else %}
+            <h1>Cadastrado com sucesso.</h1>
+            <span>{%if nome %} {{nome}} {% else %} Você {% endif %}entrou na campanha!</span>
+        {% endif %}
+        
+    </div>
+</div>
+{% endblock %}
