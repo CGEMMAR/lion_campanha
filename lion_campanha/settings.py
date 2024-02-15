@@ -26,10 +26,18 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False 
 
-ALLOWED_HOSTS = []
+IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
+
+# SECURITY WARNING: don't run with debug turned on in production!
+if not IS_HEROKU_APP:
+    DEBUG = True
+
+
+if IS_HEROKU_APP:
+    ALLOWED_HOSTS = ["lion-campanha-135a13853aae.herokuapp.com"]
+else:
+    ALLOWED_HOSTS = []
 
 
 # Application definition
